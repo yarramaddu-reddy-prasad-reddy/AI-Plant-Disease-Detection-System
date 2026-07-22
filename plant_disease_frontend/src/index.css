@@ -1,0 +1,54 @@
+/* Google Font */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: #F4FFF7;
+  color: #333;
+}
+
+/* Reset CSS */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Links */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Buttons */
+
+button {
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Inputs */
+
+input,
+textarea,
+select {
+  font-family: "Poppins", sans-serif;
+  outline: none;
+}
+
+/* Images */
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Smooth scrolling */
+
+html {
+  scroll-behavior: smooth;
+}

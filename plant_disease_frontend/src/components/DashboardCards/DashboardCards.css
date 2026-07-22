@@ -1,0 +1,257 @@
+/* ============================= */
+/* Section Title */
+/* ============================= */
+
+.section-title{
+
+font-size:30px;
+
+font-weight:700;
+
+color:#14532D;
+
+margin-top:45px;
+
+margin-bottom:30px;
+
+}
+
+
+/* ============================= */
+/* Grid */
+/* ============================= */
+
+.action-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+gap:25px;
+
+margin-bottom:40px;
+
+}
+
+
+/* ============================= */
+/* Card */
+/* ============================= */
+
+.action-card{
+
+padding:30px;
+
+border-radius:22px;
+
+cursor:pointer;
+
+transition:.35s;
+
+color:white;
+
+box-shadow:0 12px 25px rgba(0,0,0,.15);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+/* Hover */
+
+.action-card:hover{
+
+transform:translateY(-10px) scale(1.03);
+
+box-shadow:0 18px 35px rgba(0,0,0,.18);
+
+}
+
+
+/* ============================= */
+/* Different Card Colors */
+/* ============================= */
+
+.action-card:nth-child(1){
+
+background:linear-gradient(135deg,#1E88E5,#64B5F6);
+
+}
+
+.action-card:nth-child(2){
+
+background:linear-gradient(135deg,#43A047,#81C784);
+
+}
+
+.action-card:nth-child(3){
+
+background:linear-gradient(135deg,#FB8C00,#FFCC80);
+
+}
+
+.action-card:nth-child(4){
+
+background:linear-gradient(135deg,#E53935,#EF9A9A);
+
+}
+
+
+/* ============================= */
+/* Icon */
+/* ============================= */
+
+.card-icon{
+
+font-size:65px;
+
+margin-bottom:18px;
+
+color:white;
+
+transition:.3s;
+
+}
+
+
+/* Icon Animation */
+
+.action-card:hover .card-icon{
+
+transform:rotate(-10deg) scale(1.15);
+
+}
+
+
+/* ============================= */
+/* Title */
+/* ============================= */
+
+.action-card h3{
+
+font-size:24px;
+
+margin-bottom:12px;
+
+color:white;
+
+font-weight:700;
+
+}
+
+
+/* ============================= */
+/* Description */
+/* ============================= */
+
+.action-card p{
+
+font-size:15px;
+
+line-height:1.8;
+
+color:white;
+
+opacity:.95;
+
+}
+
+
+/* ============================= */
+/* Decorative Circle */
+/* ============================= */
+
+.action-card::before{
+
+content:"";
+
+position:absolute;
+
+width:180px;
+
+height:180px;
+
+background:rgba(255,255,255,.15);
+
+border-radius:50%;
+
+top:-70px;
+
+right:-60px;
+
+}
+
+
+/* ============================= */
+/* Decorative Circle */
+/* ============================= */
+
+.action-card::after{
+
+content:"";
+
+position:absolute;
+
+width:120px;
+
+height:120px;
+
+background:rgba(255,255,255,.08);
+
+border-radius:50%;
+
+bottom:-40px;
+
+left:-30px;
+
+}
+
+
+/* ============================= */
+/* Logout Hover */
+/* ============================= */
+
+.logout-card:hover{
+
+filter:brightness(1.05);
+
+}
+
+
+/* ============================= */
+/* Responsive */
+/* ============================= */
+
+@media(max-width:992px){
+
+.action-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:700px){
+
+.action-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.section-title{
+
+font-size:26px;
+
+}
+
+.action-card{
+
+padding:25px;
+
+}
+
+}

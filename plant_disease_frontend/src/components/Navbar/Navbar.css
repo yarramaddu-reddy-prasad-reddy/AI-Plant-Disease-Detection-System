@@ -1,0 +1,23 @@
+.navbar{
+
+background:linear-gradient(90deg,#2E7D32,#43A047);
+
+padding:20px 35px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
+}
