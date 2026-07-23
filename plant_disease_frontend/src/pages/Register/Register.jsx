@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService";
+import { useToast } from "../../components/Toast/ToastProvider";
 
 function Register() {
   const navigate = useNavigate();
+  const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     full_name: "",
@@ -22,6 +25,7 @@ function Register() {
   // Handle registration
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       console.log("Sending Data:", formData);
@@ -30,7 +34,7 @@ function Register() {
 
       console.log("Success:", response.data);
 
-      alert("Registration Successful");
+      addToast("Registration Successful", "success");
 
       navigate("/");
     } catch (error) {
@@ -40,11 +44,14 @@ function Register() {
       console.log("Response:", error.response?.data);
       console.log("====================================");
 
-      alert(
+      addToast(
         error.response?.data?.error ||
           JSON.stringify(error.response?.data) ||
-          "Registration Failed"
+          "Registration Failed",
+        "error"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -106,17 +113,18 @@ function Register() {
 
         <button
           type="submit"
+          disabled={loading}
           style={{
             width: "100%",
             padding: "10px",
-            backgroundColor: "green",
+            backgroundColor: loading ? "#6b8f6f" : "green",
             color: "white",
             border: "none",
             borderRadius: "5px",
-            cursor: "pointer",
+            cursor: loading ? "not-allowed" : "pointer",
           }}
         >
-          Register
+          {loading ? "Creating account..." : "Register"}
         </button>
       </form>
 

@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import Layout from "../../components/Layout/Layout";
 import api from "../../services/api";
+import { useToast } from "../../components/Toast/ToastProvider";
 import "./Predict.css";
 
 function Predict() {
+  const { addToast } = useToast();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ function Predict() {
 
   const processFile = (file) => {
     if (!file || !file.type.startsWith("image/")) {
-      alert("Please upload a valid image file.");
+      addToast("Please upload a valid image file.", "error");
       return;
     }
 
@@ -54,7 +56,7 @@ function Predict() {
 
   const handlePredict = async () => {
     if (!image) {
-      alert("Please select or drop an image first.");
+      addToast("Please select or drop an image first.", "error");
       return;
     }
 
@@ -80,9 +82,9 @@ function Predict() {
     } catch (error) {
       console.error(error);
 
-      alert(
-        error.response?.data?.error ||
-        "Prediction Failed"
+      addToast(
+        error.response?.data?.error || "Prediction Failed",
+        "error"
       );
 
     } finally {

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../services/authService";
+import { useToast } from "../../components/Toast/ToastProvider";
 
 function Login() {
   const navigate = useNavigate();
+  const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,6 +22,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await loginUser(formData);
@@ -32,14 +36,14 @@ function Login() {
         JSON.stringify(response.data.user)
       );
 
-      alert("Login Successful");
+      addToast("Login Successful", "success");
 
       // Redirect to Dashboard
       navigate("/dashboard");
     } catch (error) {
-      alert(
-        error.response?.data?.error || "Login Failed"
-      );
+      addToast(error.response?.data?.error || "Login Failed", "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,18 +94,19 @@ function Login() {
 
         <button
           type="submit"
+          disabled={loading}
           style={{
             width: "100%",
             padding: "10px",
-            background: "#2E7D32",
+            background: loading ? "#6b8f6f" : "#2E7D32",
             color: "white",
             border: "none",
             borderRadius: "5px",
-            cursor: "pointer",
+            cursor: loading ? "not-allowed" : "pointer",
             fontSize: "16px",
           }}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 

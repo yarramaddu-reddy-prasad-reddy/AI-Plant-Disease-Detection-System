@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Layout from "../../components/Layout/Layout";
 import { getHistory, deleteHistoryRecord } from "../../services/historyService";
+import { useToast } from "../../components/Toast/ToastProvider";
 import "./History.css";
 
 function History() {
+  const { addToast } = useToast();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -38,8 +40,9 @@ function History() {
       await deleteHistoryRecord(id);
       setHistory((prev) => prev.filter((item) => item.prediction_id !== id));
       if (selectedItem?.prediction_id === id) setSelectedItem(null);
+      addToast("Prediction deleted successfully", "success");
     } catch (error) {
-      alert("Failed to delete record.");
+      addToast("Failed to delete record.", "error");
       console.error(error);
     }
   };
