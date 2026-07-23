@@ -1,25 +1,27 @@
 from datetime import timedelta
 import os
 
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_jwt_extended import JWTManager
+from dotenv import load_dotenv
 
-from config import UPLOAD_FOLDER
 from routes.auth import auth
 from routes.predict import predict_bp
 from routes.history import history_bp
 from routes.profile import profile_bp
 from routes.dashboard import dashboard_bp
-from datetime import timedelta
+
+load_dotenv()
+
 app = Flask(__name__)
 
 # ======================================
 # Flask Configuration
 # ======================================
 
-app.config["JWT_SECRET_KEY"] = "plant_disease_secret_key"
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "plant_disease_secret_key")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=12)
 
 # Maximum upload size (16 MB)
@@ -40,9 +42,6 @@ def test_token():
         "user_id": get_jwt_identity()
     }
 
-# Create uploads folder if it doesn't exist
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 # JWT
 jwt = JWTManager(app)
 
@@ -55,14 +54,6 @@ app.register_blueprint(predict_bp)
 app.register_blueprint(history_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(dashboard_bp)
-# ======================================
-# Static Route for Uploaded Images
-# ======================================
-
-@app.route("/uploads/<filename>")
-def uploaded_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
-
 # ======================================
 # Home Route
 # ======================================

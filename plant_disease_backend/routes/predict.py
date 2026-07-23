@@ -5,7 +5,6 @@ import numpy as np
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from config import UPLOAD_FOLDER
 from database.db import get_connection
 from models.model_loader import load_ai_model
 from utils.class_names import CLASS_NAMES
@@ -53,23 +52,19 @@ def predict():
             "error": "Only JPG, JPEG and PNG images are allowed"
         }), 400
 
-    # Create uploads folder
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    temp_dir = os.path.join(os.getcwd(), "temp_uploads")
+    os.makedirs(temp_dir, exist_ok=True)
 
     # Generate unique filename
     extension = image.filename.rsplit(".", 1)[1].lower()
     filename = f"{uuid.uuid4()}.{extension}"
 
-    image_path = os.path.join(
-        UPLOAD_FOLDER,
-        filename
-    )
+    image_path = os.path.join(temp_dir, filename)
 
     # Save image
     image.save(image_path)
 
-    # URL for frontend
-    image_url = request.host_url.rstrip("/") + "/uploads/" + filename
+    image_url = f"/temp/{filename}"
 
     # Preprocess image
     processed_image = preprocess_image(image_path)
