@@ -1,0 +1,19 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+.venv-1/
+
+# Local database files
+*.db
+*.sqlite3
+
+# Uploads
+uploads/

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.db import get_connection
 
@@ -11,7 +12,7 @@ def get_profile():
     user_id = get_jwt_identity()
 
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
 
     # Fetch User Info
     cursor.execute(
@@ -112,7 +113,7 @@ def change_password():
         return jsonify({"error": "Both current and new passwords are required"}), 400
 
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
 
     cursor.execute("SELECT password_hash FROM users WHERE user_id = %s", (user_id,))
     user = cursor.fetchone()

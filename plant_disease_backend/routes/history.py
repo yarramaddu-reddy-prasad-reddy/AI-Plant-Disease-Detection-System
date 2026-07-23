@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from psycopg2.extras import RealDictCursor
+
 from database.db import get_connection
 from utils.disease_info import DISEASE_INFO
 
@@ -11,7 +13,7 @@ def get_user_history():
     user_id = get_jwt_identity()
 
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
 
     cursor.execute(
         """

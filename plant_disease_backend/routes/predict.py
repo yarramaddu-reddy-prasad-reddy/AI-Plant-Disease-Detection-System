@@ -140,6 +140,7 @@ def predict():
         )
         VALUES
         (%s, %s, %s, %s, %s)
+        RETURNING prediction_id
         """,
         (
             user_id,
@@ -150,9 +151,8 @@ def predict():
         )
     )
 
+    prediction_id = cursor.fetchone()[0]
     conn.commit()
-
-    prediction_id = cursor.lastrowid
 
     cursor.close()
     conn.close()

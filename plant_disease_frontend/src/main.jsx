@@ -7,7 +7,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/AI-Plant-Disease-Detection-System">
       <App />
     </BrowserRouter>
   </React.StrictMode>
