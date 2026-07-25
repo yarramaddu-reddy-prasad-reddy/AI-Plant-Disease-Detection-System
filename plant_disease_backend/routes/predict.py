@@ -18,6 +18,23 @@ predict_bp = Blueprint("predict", __name__)
 model = load_ai_model()
 
 
+def run_tflite_prediction(interpreter, input_data):
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    input_index = input_details[0]["index"]
+    output_index = output_details[0]["index"]
+
+    input_dtype = input_details[0]["dtype"]
+    input_tensor = input_data.astype(input_dtype)
+
+    interpreter.set_tensor(input_index, input_tensor)
+    interpreter.invoke()
+
+    output = interpreter.get_tensor(output_index)
+    return output
+
+
 def allowed_file(filename):
     """
     Check whether uploaded file is a valid image.
@@ -69,8 +86,8 @@ def predict():
     # Preprocess image
     processed_image = preprocess_image(image_path)
 
-    # Predict
-    prediction = model.predict(processed_image, verbose=0)
+    # Predict with TFLite interpreter
+    prediction = run_tflite_prediction(model, processed_image)
 
     predicted_index = int(np.argmax(prediction))
 
