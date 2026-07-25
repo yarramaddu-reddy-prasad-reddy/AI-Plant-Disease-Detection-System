@@ -1,7 +1,7 @@
 from datetime import timedelta
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_jwt_extended import JWTManager
@@ -55,16 +55,17 @@ app.register_blueprint(history_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(dashboard_bp)
 # ======================================
-# Home Route
+# Health Routes
 # ======================================
 
 @app.route("/")
-def home():
-    return {
+@app.route("/health")
+def health():
+    return jsonify({
         "status": "success",
-        "message": "Plant Disease Detection Backend is Running",
+        "message": "Plant Disease Detection Backend is healthy",
         "version": "1.0"
-    }
+    })
 
 # ======================================
 # Run Server

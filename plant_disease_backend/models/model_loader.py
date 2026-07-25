@@ -1,5 +1,5 @@
 ﻿from pathlib import Path
-from tensorflow.lite import Interpreter
+import tensorflow as tf
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,7 +16,7 @@ def load_ai_model():
         print("Loading Plant Disease TFLite Model...")
         print(f"Model Path: {MODEL_PATH}")
 
-        model = Interpreter(model_path=str(MODEL_PATH))
+        model = tf.lite.Interpreter(model_path=str(MODEL_PATH))
         model.allocate_tensors()
 
         print("✅ TFLite Model Loaded Successfully")
