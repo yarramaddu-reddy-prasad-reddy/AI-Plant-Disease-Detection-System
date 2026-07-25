@@ -8,6 +8,7 @@ function Profile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [pageError, setPageError] = useState("");
 
   // Modal States
   const [showEditModal, setShowEditModal] = useState(false);
@@ -33,6 +34,7 @@ function Profile() {
   const fetchProfileData = async () => {
     try {
       setLoading(true);
+      setPageError("");
       const response = await getProfile();
       setProfile(response.data);
       setEditForm({
@@ -41,6 +43,7 @@ function Profile() {
       });
     } catch (error) {
       console.error("Error fetching profile:", error);
+      setPageError("Unable to load profile. Please login again.");
     } finally {
       setLoading(false);
     }
@@ -106,6 +109,16 @@ function Profile() {
         <div className="profile-loading">
           <div className="spinner"></div>
           <p>Fetching user details...</p>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <Layout>
+        <div className="profile-loading">
+          <p>{pageError || "Profile information is unavailable."}</p>
         </div>
       </Layout>
     );

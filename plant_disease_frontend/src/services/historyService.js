@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API_URL = "https://YOUR-RENDER-URL.onrender.com";
+import api from "./api";
 
 const getAuthHeaders = () => ({
   headers: {
@@ -9,9 +7,9 @@ const getAuthHeaders = () => ({
 });
 
 export const getHistory = async () => {
-  return await axios.get(`${API_URL}/history`, getAuthHeaders());
+  return await api.get("/history", getAuthHeaders());
 };
 
 export const deleteHistoryRecord = async (predictionId) => {
-  return await axios.delete(`${API_URL}/history/${predictionId}`, getAuthHeaders());
+  return await api.delete(`/history/${predictionId}`, getAuthHeaders());
 };

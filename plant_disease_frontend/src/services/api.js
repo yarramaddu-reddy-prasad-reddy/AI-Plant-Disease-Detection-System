@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:5000", // Change this after deploying backend
+  baseURL: "https://ai-plant-disease-detection-system-1.onrender.com", // Change this after deploying backend
   headers: {
     "Content-Type": "application/json",
   },

@@ -1,4 +1,4 @@
-import {
+﻿import {
   MdDashboard,
   MdOutlineScience,
   MdHistory,
@@ -9,7 +9,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -18,24 +18,22 @@ function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
-
-      <div className="logo">
-
-        <span className="logo-icon">🌿</span>
-
-        <div>
-
-          <h2>Plant AI</h2>
-
-          <p>Disease Detection</p>
-
+    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+      <div className="sidebar-top">
+        <div className="logo">
+          <span className="logo-icon">🌿</span>
+          <div>
+            <h2>Plant AI</h2>
+            <p>Disease Detection</p>
+          </div>
         </div>
 
+        <button className="close-sidebar" onClick={onClose} aria-label="Close menu">
+          ×
+        </button>
       </div>
 
       <nav className="menu">
-
         <NavLink to="/dashboard">
           <MdDashboard />
           Dashboard
@@ -55,20 +53,15 @@ function Sidebar() {
           <MdPerson />
           Profile
         </NavLink>
-
       </nav>
 
       <div className="bottom">
-
         <button onClick={logout}>
           <MdLogout />
           Logout
         </button>
-
         <p>Version 1.0</p>
-
       </div>
-
     </aside>
   );
 }

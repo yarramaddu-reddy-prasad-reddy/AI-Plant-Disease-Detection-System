@@ -1,13 +1,18 @@
-import "./Navbar.css";
+﻿import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ onMenuClick }) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="navbar">
-      <h2>Welcome, {user?.full_name} 👋</h2>
+      <button className="menu-toggle" onClick={onMenuClick} aria-label="Open menu">
+        ☰
+      </button>
 
-      <p>{new Date().toDateString()}</p>
+      <div className="navbar-content">
+        <h2>Welcome, {user?.full_name || "Guest"} 👋</h2>
+        <p>{new Date().toDateString()}</p>
+      </div>
     </div>
   );
 }
